@@ -3,26 +3,32 @@ name: Manual Environment Demo
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Select the environment"
+      firstname:
+        description: "first name"
         required: true
-        default: dev
+        default: MS
         type: choice
         options:
-          - dev
-          - prod
+          - MS
+          - MAC
+
+      lastname:
+        description: "last name"
+        required: true
+        default: Windows
+        type: choice
+        options:
+          - Windows
+          - Apple
+          
 
 jobs:
   print-environment:
     runs-on: ubuntu-latest
     steps:
       - name: Print selected environment
-        run: echo "You selected the ${{ inputs.environment }} environment"
+        run: echo "You selected the ${{ inputs.firstname }} ${{inputs.lastname}} environment"
 
       - name: Run environment-specific step
         run: |
-          if [ "${{ inputs.environment }}" = "prod" ]; then
-            echo "Running PROD logic..."
-          else
-            echo "Running DEV logic..."
-          fi
+          echo input.firstname input.lastname
