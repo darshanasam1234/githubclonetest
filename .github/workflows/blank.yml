@@ -1,0 +1,28 @@
+name: Manual Environment Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select the environment"
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  print-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print selected environment
+        run: echo "You selected the ${{ inputs.environment }} environment"
+
+      - name: Run environment-specific step
+        run: |
+          if [ "${{ inputs.environment }}" = "prod" ]; then
+            echo "Running PROD logic..."
+          else
+            echo "Running DEV logic..."
+          fi
